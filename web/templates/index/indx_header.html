@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_index.css') }}">
+
+        <script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_index.js') }}" ></script> 
+
+        <style>
+            body 
+            {
+                background-color: rgb(48,48,44);
+                padding: 5px;
+                text-align: center;
+                font-size: 25px;
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight:bold;  
+            }
+        </style>
+
+	</head>
+	<body>
+
+        <input type="hidden" name="KEY_REQUEST_SIGNIN" id="KEY_REQUEST_SIGNIN" value="{{signin_tag}}">  
+	    <input type="hidden" name="KEY_REQUEST_LOGIN" id="KEY_REQUEST_LOGIN" value="{{login_tag}}">  
+
+        <form id="UserSelection" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="{{key_id}}" target="body">  
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form>    
+	
+        <h2><span style="color:rgb(121, 116, 116);font-size:28px">DPRM PROJECT</span></h2>
+      	<h5><span style="color:rgb(141, 136, 136);font-size:25px">DATA PRODUCT REFINED MANAGEMENT</span></h5>        
+      	<h10><span style="color:rgb(118, 112, 112);font-size:16px">{{user_tag}}</span></h10><br>
+        
+    
+        <input class="button buton_sign_in" type ='button' name ='COMMAND' value ='SIGN IN' onClick="SingInSubmit()"/> 
+        <input class="button buton_login" type ='button' name ='COMMAND' value ='LOGIN' onClick="LoginSubmit()"/>       
+	
+	</body>
+</html>

@@ -1,0 +1,105 @@
+<html>
+	<head>
+
+		<style type="text/css">
+
+			body 
+			{
+				font-family:verdana,arial,sans-serif;
+				font-size:10pt;
+				margin:4px;
+				background-color:rgb(71, 68, 68);
+				color: rgb(255, 255, 255);
+				scroll-margin-right: 20px;
+			}
+
+
+			.button_right_disabled {
+				border: none;
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				height:35;
+				background-color: #cccccc; 
+				color: #666666;          
+				cursor: not-allowed;     
+				opacity: 0.6;
+				width:210px;
+				border-radius: 2px;          
+				font-size:11pt;
+				font-weight:bold;
+			}
+
+			.button_right_selected
+			{
+				background-color: #a0a8a4;
+				border: none;
+				color: rgb(32, 105, 57);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				cursor: pointer;
+				height:35;
+				width:210px;
+				border-radius: 2px;
+				font-size:11pt;
+				font-weight:bold;
+			}
+
+			.button_right
+			{
+				background-color: #a0a8a4;
+				border: none;
+				color: rgb(0, 0, 0);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				cursor: pointer;
+				height:25;
+				width:210px;
+				border-radius: 2px;
+				font-size:11pt;
+				font-weight:bold;
+			}
+
+		</style>
+		<script>
+			function ValidationSubmit()
+			{
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_VALIDATION").value 
+				document.getElementById("bodySubmit").target = "header"
+				document.getElementById("bodySubmit").submit()       
+			}
+
+			function SchedulerSubmit()
+			{
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_SCHEDULER").value 
+				document.getElementById("bodySubmit").target = "content"
+				document.getElementById("bodySubmit").submit()       
+			}
+		</script>
+	</head>
+	<body>
+
+		<input type="hidden" name="KEY_CONTROL_ID" id="KEY_CONTROL_ID" value="{{key_id}}">  	
+		<input type="hidden" name="KEY_ROUTE_SCHEDULER" id="KEY_ROUTE_SCHEDULER" value="{{select_scheduler_tag}}">  	
+		<input type="hidden" name="KEY_ROUTE_VALIDATION" id="KEY_ROUTE_VALIDATION" value="{{select_validation_tag}}">
+
+		<form id="bodySubmit" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="HIDDEN_X" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form> 
+
+		<input class="button_right buton_exp" type ='button' name ='COMMAND_VALIDATION' value ='VALIDATION' onClick="ValidationSubmit()"/>
+		<input class="button_right buton_exp" type ='button' name ='COMMAND_SCHEDILER' value ='SCHEDULER' onClick="SchedulerSubmit()"/>
+
+	</body>
+</html>

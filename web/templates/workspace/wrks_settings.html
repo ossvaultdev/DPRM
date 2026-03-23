@@ -1,0 +1,318 @@
+<html>
+	<head>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_wrks_settings.css') }}"> 
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_wrks_global.css') }}">
+
+        <script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_global.js') }}" ></script> 
+
+        <script>
+            
+            function CloseAccountSubmit() 
+            {
+                document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_CLOSE_ACCOUNT").value;          
+                document.getElementById("bodySubmit").submit();
+
+            }
+
+			function HomeSubmit() 
+			{            
+                document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_HOME").value;          
+                document.getElementById("bodySubmit").target = "content"
+                document.getElementById("bodySubmit").submit();
+			}
+
+			function SaveSubmit() 
+			{   
+                let user_first_name = document.getElementById("USR_FIRST_NAME").value
+                let user_last_name = document.getElementById("USR_LAST_NAME").value
+
+                let user_address = document.getElementById("USR_ADDRESS").value
+                let user_country = document.getElementById("USR_COUNTRY").value
+                let user_email = document.getElementById("USR_EMAIL").value
+                let user_phone = document.getElementById("USR_PHONE").value
+
+                let user_error_default = 'ERROR IN REGISTRATION: \nUser '
+
+                if (user_country.length == 0)
+                {
+                    user_country = document.getElementById("KEY_COUNTRY_CODE").value
+                }
+
+                if (user_first_name.length == 0)
+                {
+                    return WindowsMessage(user_error_default + "First Name is not filled!");
+                }
+
+                if (user_last_name.length == 0)
+                {
+                    return WindowsMessage(user_error_default + "Last Name is not filled!");
+                }
+
+                if (user_address.length == 0)
+                {
+                    return WindowsMessage(user_error_default + "Address is not filled!");
+                }
+
+                if (user_country == "Country Selection")
+                {
+                    return WindowsMessage(user_error_default + "Country is not filled!");
+                }
+
+                if (user_email.length == 0)
+                {
+                    return WindowsMessage(user_error_default + "EMail is not filled!");
+                }
+
+                if (user_phone.length == 0)
+                {
+                    return WindowsMessage(user_error_default + "Phone is not filled!");
+                }
+
+                let valid_email_char = '.0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                let user_email_split = user_email.split('@')
+                let has_valid_email = false
+
+                if (user_email_split.length == 2)
+                {
+                    if ((is_valid_string(user_email_split[0], valid_email_char)) && (is_valid_string(user_email_split[1], valid_email_char)))
+                    {
+                        has_valid_email = true
+                    }
+                }
+
+                if(!has_valid_email)
+                {
+                    return WindowsMessage(user_error_default + 'email has not valid format!\n\n' + 'Character value allowed only: [1*[@]+' + valid_email_char + ']')
+                }
+                
+                let valid_phone_number_char = '0123456789+.-()'
+                
+                if (!is_valid_string(user_phone, valid_phone_number_char))
+                {
+                    return WindowsMessage(user_error_default + 'phone has not valid format!\n\n' + 'Character value allowed only: [' + valid_phone_number_char + ']')
+                }
+
+                let valid_address_char = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 :.-,()'
+
+                if (!is_valid_string(user_address, valid_address_char))
+                {
+                    return WindowsMessage(user_error_default + 'address has not valid format!\n\n' + 'Character value allowed only: [' + valid_address_char + ']')
+                }
+                
+                let user_data_sign_in_value = ""
+                
+                user_data_sign_in_value = 'user_first_name=' + replace_value_by_tag(user_first_name) + ":";
+                user_data_sign_in_value += 'user_last_name=' + replace_value_by_tag(user_last_name) + ":";
+                user_data_sign_in_value += 'user_address=' + replace_value_by_tag(user_address) + ":";
+                user_data_sign_in_value += 'user_country=' + replace_value_by_tag(user_country) + ":";
+                user_data_sign_in_value += 'user_email=' + replace_value_by_tag(user_email) + ":";
+                user_data_sign_in_value += 'user_phone=' + replace_value_by_tag(user_phone);
+
+                document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_SAVE_SETTING").value + ':' + user_data_sign_in_value;          
+                document.getElementById("bodySubmit").target = "content";
+                document.getElementById("bodySubmit").submit(); 
+			}
+
+            function ChangePasswordSubmit() 
+			{            
+                let user_data_password_save_value = "";
+                let valid_pwd_char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!&%ç*"+-/_-'
+
+                let user_pwd = document.getElementById('user_pwd1').value
+                let user_new_pwd1 = document.getElementById('user_new_pwd').value
+                let user_new_pwd2 = document.getElementById('user_new_pwd2').value
+
+                user_data_password_save_value = Sha256.hash(user_pwd)
+
+                if (user_data_password_save_value != document.getElementById('USER_PWD').value)
+                {   
+                    return WindowsMessage("Error: Your password is not correct!")
+                }
+                
+                if (user_new_pwd1.length < 8)
+                { 
+                    return WindowsMessage("Error: new Password has to be at least 8 characters long!")
+                }
+                
+                if (!is_valid_string(user_new_pwd1, valid_pwd_char))
+                {
+                    return WindowsMessage('Error: password has not valid format!\n\n' + 'Character value allowed only: [' + valid_pwd_char + ']')
+                }
+                
+                if (user_data_password_save_value == Sha256.hash(user_new_pwd1))
+                {
+                    return WindowsMessage("Error: Your password and new password are the same")
+                }
+
+                if (Sha256.hash(user_new_pwd1) != Sha256.hash(user_new_pwd2))
+                {
+                    return WindowsMessage("Error: Your new password and retype password are not the same")
+                }
+
+                user_data_password_save_value = 'user_pwd=' + user_data_password_save_value + ":"
+                user_data_password_save_value += 'user_new_pwd=' + Sha256.hash(user_new_pwd1) + ":"
+                user_data_password_save_value += 'user_new_pwd2=' + Sha256.hash(user_new_pwd2)
+
+                document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_SAVE_PASSWORD").value + ":" + user_data_password_save_value         
+                document.getElementById("bodySubmit").target = "content"
+                document.getElementById("bodySubmit").submit()                
+            }
+            
+		</script>
+	</head>
+	<body>
+        
+        <input type="hidden" name="KEY_CONTROL_ID" id="KEY_CONTROL_ID" value="{{key_id}}">  	
+        <input type="hidden" name="KEY_COUNTRY_CODE" id="KEY_COUNTRY_CODE" value="{{country_code}}">  	
+        <input type="hidden" name="KEY_ROUTE_HOME" id="KEY_ROUTE_HOME" value="{{home_tag}}">  	
+        <input type="hidden" name="KEY_ROUTE_LOG_OUT" id="KEY_ROUTE_LOG_OUT" value="{{logout_tag}}">  	        
+        <input type="hidden" name="KEY_ROUTE_SAVE_SETTING" id="KEY_ROUTE_SAVE_SETTING" value="{{save_setting_tag}}">  	
+        <input type="hidden" name="KEY_ROUTE_CLOSE_ACCOUNT" id="KEY_ROUTE_CLOSE_ACCOUNT" value="{{close_account_tag}}">  	
+        <input type="hidden" name="KEY_ROUTE_SAVE_PASSWORD" id="KEY_ROUTE_SAVE_PASSWORD" value="{{save_password_tag}}">  
+
+        <input type="hidden" name="USER_PWD" id="USER_PWD" value="{{new_user.user_login_pwd}}">  
+
+        <form id="bodySubmit" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="HIDDEN_X" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form>    
+
+		<dialog id="close_account_windows">
+			<form method="dialog">
+				<h3 style="color:rgb(156, 21, 21);text-align:center;">DELETE YOUR ACCOUNT</h3>
+                <h4 style="color:rgb(255,255,255);;text-align:center;">CONFIRM FOR ACCOUNT DELETION</h4>
+				<br>      
+				<div class="actions">
+					<button type="button" style="border-radius:4px;" id="close_account_btnAnnuler" class="btn-cancel">Cancel</button>
+					<button type="submit" style="border-radius:4px;color:rgb(0, 0, 0);font-weight:bold;" id="btnValider" class="btn-new" value="confirm">CONFIRM</button>
+				</div>
+			</form>
+		</dialog>
+
+        <dialog id="change_pwd_windows">
+			<form method="dialog">
+				<h3 style="color:rgb(156, 21, 21);text-align:center;">CHANGE YOUR PASSWORD</h3>
+                <label for="user_pwd1" style="color:rgb(255,255,255);">Enter your password: </label>
+				<input type="password" id="user_pwd1" style="font-size: 12px;"placeholder="Your Current Password" autofocus>
+                <label for="user_new_pwd" style="color:rgb(255,255,255);">Enter new password: </label>
+				<input type="password" id="user_new_pwd" style="font-size: 12px;"placeholder="Your New Password" autofocus>                
+                <label for="user_new_pwd2" style="color:rgb(255,255,255);">Retype new password: </label>
+				<input type="password" id="user_new_pwd2" style="font-size: 12px;"placeholder="Your New Password" autofocus>                
+				<br>
+				<div class="actions">
+					<button type="submit" style="border-radius:4px;" id="change_pwd_btnAnnuler" class="btn-cancel" value="cancel">Cancel</button>
+                    <button type="submit" style="border-radius:4px;color:rgb(0, 0, 0);font-weight:bold;" id="change_pwd_save" class="btn-new" value="save">SAVE</button>
+				</div>
+			</form>
+		</dialog>
+
+        <script>
+            
+			const close_account_modale = document.getElementById('close_account_windows');
+			const close_account_btnAnnuler = document.getElementById('close_account_btnAnnuler');
+
+            const change_pwd_modale = document.getElementById('change_pwd_windows');
+            const change_pwd_btnAnnuler = document.getElementById('change_pwd_btnAnnuler');
+
+			function OnClickCloseAccount()
+			{
+                close_account_modale.returnValue = ''
+				close_account_modale.showModal();
+			}
+			
+			close_account_btnAnnuler.addEventListener('click', () => {
+				close_account_modale.close(); 
+			});
+
+			close_account_modale.addEventListener('close', () => {
+				
+				if (close_account_modale.returnValue == 'confirm') {
+                    CloseAccountSubmit();
+				}
+			});
+
+			close_account_modale.addEventListener('click', (event) => {
+				if (event.target == close_account_modale) {
+					close_account_modale.close();
+				}
+			});
+
+            function OnClickChangePassword()
+			{
+				change_pwd_modale.showModal();
+			}
+			
+			change_pwd_btnAnnuler.addEventListener('click', () => {
+                change_pwd_modale.close();
+			});
+
+			change_pwd_modale.addEventListener('close', () => {
+				
+				if (change_pwd_modale.returnValue === 'save') {
+                     ChangePasswordSubmit();
+				}
+			});
+
+			change_pwd_modale.addEventListener('click', (event) => {
+				if (event.target === change_pwd_modale) {
+					change_pwd_modale.close();
+				}
+			}); 
+		</script>
+
+		<h1>USER DPRM SETTINGS OF {{user_name}}</h1>
+		<h2>User Settings: <span style="color:rgb(167, 14, 14);font-size:16px;font-weight:bold">{{new_user.error_msg}}</span></h2>
+        <br>
+
+        <div class="a">			
+                <input class="button_center buton_change_pwd" type ='button' name ='change_PWD' value ='CHANGE PASSWORD' onClick="OnClickChangePassword()"/><br>
+                <input class="button_center buton_close_acct" type ='button' name ='close_account' value ='CLOSE ACCOUNT' onClick="OnClickCloseAccount()"/>	
+                
+            <div class="b">
+                <div>
+                    <br>
+                    <label class="label lb_first_name" for="first_name">First Name</label><br>
+                    <input class="text txt_user_first_name" type="text" id="USR_FIRST_NAME" name="USR_FIRST_NAME" value="{{new_user.user_first_name}}"
+                                title="First name must contain only alpha characters and max length of 20" maxlength="20" required><br><br>
+                                
+                    <label class="label lb_last_name" for="last_name">Last Name</label><br>
+                    <input class="text txt_user_last_name" type="text" id="USR_LAST_NAME" name="USR_LAST_NAME" value="{{new_user.user_last_name}}"
+                                    title="Last name must contain only alpha characters and space and max length of 50" maxlength="50" required><br><br>
+                    
+                    <label class="label lb_address" for="address">Address</label><br>
+                    <input class="text txt_user_address" type="text" id="USR_ADDRESS" name="USR_ADDRESS" value="{{new_user.user_address}}"
+                                    title="Address must contain only Alpha or Numeric value and with '.' or ':' for special characters and max length of 100" maxlength="100" required><br><br>
+
+                    <label class="label lb_country" for="country">Country</label>
+                    <select class="text lb_country1" id="USR_COUNTRY" name="USR_COUNTRY" required>
+                        <option value="">{{user_country_def}}</option>
+                        
+                        {% for country in country_list %}
+                            <option value="{{ country[0] }}">{{ country[1] }}</option>	
+                        {% endfor %}
+
+                    </select><br><br>
+
+                    <label class="label lb_email" for="email">Email</label><br>
+                    <input class="text txt_user_email" type="text" id="USR_EMAIL" name="USR_EMAIL" maxlength="50" value="{{new_user.user_email}}"
+                                    title="User E-Mail format is valid only [xxxxx@xxx.xx] -> [xxx.xxxx.x.xx@xxx.xx] and No special aplha value characters are admited and max length of 50" required /><br><br>
+                        
+                    <label class="label lb_phone_number" for="phone_number">Phone Number</label><br>
+                    <input class="text txt_user_phone_number" type="text" id="USR_PHONE" name="USR_PHONE" maxlength="20" value="{{new_user.user_phone}}"
+                                    title="Phone Number must contain only Numeric value and with '.' or '(' or ')' for special characters and max length of 20" required><br><br>
+                    
+                    <br><br>
+                    <input class="button_left buton_home" style="border-radius:6px;height:36px" type ='button' name ='home' value ='CANCEL' onClick="HomeSubmit()"/>
+                    <input class="button buton_save" style="border-radius:6px;height:36px" type ='button' name ='save' value ='SAVE' onClick="SaveSubmit()"/>
+                    <br>
+                    
+                </div>
+            </div>	
+        </div>        
+	</body>
+</html>

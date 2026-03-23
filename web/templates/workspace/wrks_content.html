@@ -1,0 +1,61 @@
+<html>
+	<head>
+
+		<style type="text/css">
+
+			body 
+			{
+				font-family:verdana,arial,sans-serif;
+				font-size:10pt;
+				margin:30px;
+				background-color:rgb(255, 253, 253);
+				scroll-margin-right: 20px;
+			}
+		</style>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_wrks_default.css') }}">
+	</head>
+	<body>
+
+		<h1>USER WORKING WORKSPACE OF {{user_name}}</h1>
+		<br>
+		<h2>Do a selection or Create a New Workspace on your left menu</h2>
+		<h4><span style="color:rgb(167, 14, 14);font-size:16px;font-weight:bold">{{error_msg}}</span></h4>
+        <br>
+        <section id="mon-conteneur">
+
+			<div class="etape">
+				<h1>ACQUISITION</h1><br> 
+				<p>
+				<span style="color:rgb(31, 13, 13);font-size:21px">This web page will allow the user to create one or more web API requests. On this page, there will be a function to launch the web API request(s) and receive data in lists on the same page.</span>
+				</p><br>   
+                <p>
+				<span style="color:rgb(31, 13, 13);font-size:21px">From this page, the user can also schedule web API requests to be automatically executed at user-defined intervals.</span>
+				</p>        
+			</div>
+
+			<div class="etape">
+				<h1>TRANSFORMATION</h1><br> 
+				<p>
+				<span style="color:rgb(31, 13, 13);font-size:21px">This web page will display the results from the Acquisition page in one or more data tables so that the user can transform them, modifying the data by calculating, adding, cross-referencing with other data, and reducing it to obtain the necessary dataset for their applications.</span>
+				</p>          
+			</div>
+
+            <div class="etape">
+				<h1>EXPLOITATION</h1><br> 
+				<p>
+				<span style="color:rgb(31, 13, 13);font-size:21px">This page allows users to specify and configure how to process the acquired and transformed data.</span>
+				</p>           
+				<br>
+                <p>
+				<span style="color:rgb(31, 13, 13);font-size:21px">This includes the ability to extract files via internet links to download them in various formats, as described in the description, or to share them with other users via internet links or web API requests.</span>
+				</p>           
+				<br>
+                <p>
+				<span style="color:rgb(31, 13, 13);font-size:21px">To access the Transformation and Data Processing web pages, the previous step must be completed.</span>
+				</p>           
+				<br>
+			</div>
+		</section>
+	</body>
+</html>

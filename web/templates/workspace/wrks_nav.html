@@ -1,0 +1,220 @@
+<html>
+	<head>
+
+		<title>HTML Frames Example - Menu 1</title>
+
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_wrks_global.css') }}">
+
+		<script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_global.js') }}" ></script> 
+
+		<style type="text/css">
+			body 
+			{
+				font-family:verdana,arial,sans-serif;
+				font-size:10pt;
+				margin:10px;
+				background-color:rgb(82, 82, 82);
+			}
+			h5
+			{
+				color:white;
+			}
+			.button 
+			{
+				background-color: #2c302e;
+				border: none;
+				color: white;
+				float: center;
+				padding: 10px 30px;
+				text-align: center;
+				text-decoration: none;
+				font-size: 12px;
+				margin: 2px 2px;
+				cursor: pointer;
+				width:210px;
+				height: 35px;
+				border-radius: 2px;
+			}
+		
+			.button_add
+			{
+				background-color: #9ea3a1;
+				border: none;
+				color: black;
+				float: center;
+				padding: 10px 10px;
+				text-align: center;
+				text-decoration: none;
+				margin: 2px 2px;
+				cursor: pointer;
+				width:190px;
+				border-radius: 2px;
+			}
+		</style>
+
+		<script>
+
+
+			function NewWorkspaceSubmit() 
+            {
+				let valid_workspace_char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890_-'
+				let new_workspace_name = document.getElementById("new_workspace_name").value
+
+				new_workspace_name = new_workspace_name.toUpperCase()
+
+				if (new_workspace_name.length < 4)
+				{
+					return WindowsMessage("Error: New Workspace Name length has to be at least 4 characters long!")
+				}
+				else if (new_workspace_name.length > 15)
+				{
+					return WindowsMessage("Error: New Workspace Name length has to be at maximum of 15 characters long!")
+				}
+				else if (!is_valid_string(new_workspace_name, valid_workspace_char))
+				{
+					return WindowsMessage('Error: New Workspace Name has not valid format!\n\n' + 'Character value allowed only: [' + valid_workspace_char + ']')
+				}
+				else
+				{
+					document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+					document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_ADD_WORKSPACE").value + ":" + new_workspace_name         
+					document.getElementById("bodySubmit").target = "body"
+					document.getElementById("bodySubmit").submit()            
+				}
+			}
+				
+
+			function RemoveWorkspaceSubmit() 			
+			{
+
+				let del_workspace_name = document.getElementById("DEL_WORKSPACE").value
+
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_DEL_WORKSPACE").value + ":" + del_workspace_name         
+				document.getElementById("bodySubmit").target = "body"
+				document.getElementById("bodySubmit").submit()            
+
+			}
+
+			function SelectWorkspaceSubmit(workspace_name)
+			{
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_SELECT_WORKSPACE").value + ":" + workspace_name         
+				document.getElementById("bodySubmit").target = "body"
+				document.getElementById("bodySubmit").submit()    
+			}
+
+		</script>
+	</head>
+	<body>
+		
+		<input type="hidden" name="KEY_CONTROL_ID" id="KEY_CONTROL_ID" value="{{key_id}}">  	
+		<input type="hidden" name="KEY_ROUTE_ADD_WORKSPACE" id="KEY_ROUTE_ADD_WORKSPACE" value="{{add_workspace_tag}}">  	
+		<input type="hidden" name="KEY_ROUTE_DEL_WORKSPACE" id="KEY_ROUTE_DEL_WORKSPACE" value="{{del_workspace_tag}}">  	
+		<input type="hidden" name="KEY_ROUTE_SELECT_WORKSPACE" id="KEY_ROUTE_SELECT_WORKSPACE" value="{{select_workspace_tag}}">  	
+		
+		<form id="bodySubmit" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="HIDDEN_X" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form>    
+
+		<dialog id="add_workspace_windows">
+			<form method="dialog">
+				<h3 style="color:rgb(156, 21, 21);text-align:center;">NEW WORKSPACE</h3>
+				<label for="nomInput" style="color:rgb(255,255,255);">Enter Name: </label>
+				<input type="text" id="new_workspace_name" style="font-size: 12px;"placeholder="Ex: Workspace A1" onkeyup="var start = this.selectionStart;
+																														   var end = this.selectionEnd;
+																														   this.value = this.value.toUpperCase();
+																														   this.setSelectionRange(start, end);" autofocus>
+				<br>
+				<div class="actions">
+					<button type="button" style="border-radius:4px;" id="btnAnnuler_add" class="btn-cancel">Cancel</button>
+					<button type="submit" style="border-radius:4px;color:rgb(0, 0, 0);font-weight:bold;" id="btnValider" class="btn-new" value="confirm">NEW</button>
+				</div>
+			</form>
+		</dialog>
+
+		<dialog id="remove_workspace_windows">
+			<form method="dialog">
+				<h3 style="color:rgb(156, 21, 21);text-align:center;">REMOVE WORKSPACE</h3>
+				<select class="text lb_workspace" id="DEL_WORKSPACE" name="DEL_WORKSPACE" required>
+					<option value="">SELECT WORKSPACE</option>
+					{% for workspace_name in workspace_core.workspace_list %}
+						<option value="{{workspace_name}}">{{workspace_name}}</option>	
+					{% endfor %}
+				</select>
+				<br>
+				<div class="actions">
+					<button type="button" style="border-radius:4px;" id="btnAnnuler_del" class="btn-cancel">Cancel</button>
+					<button type="submit" style="border-radius:4px;color:rgb(0, 0, 0);font-weight:bold;" id="btnValider_del" class="btn-new" value="remove">REMOVE</button>
+				</div>
+			</form>
+		</dialog>
+
+		<script>
+			const modale_add = document.getElementById('add_workspace_windows');			
+			const modale_del = document.getElementById('remove_workspace_windows');			
+			const btnAnnuler_add = document.getElementById('btnAnnuler_add');
+			const btnAnnuler_del = document.getElementById('btnAnnuler_del');
+
+			function OnAddNewWorkspace()
+			{
+				modale_add.returnValue = ''
+				modale_add.showModal();
+			}
+
+			btnAnnuler_add.addEventListener('click', () => {
+				modale_add.close(); 
+			});
+
+			modale_add.addEventListener('close', () => {
+				
+				if (modale_add.returnValue === 'confirm') {
+					NewWorkspaceSubmit();
+				}
+			});
+
+			modale_add.addEventListener('click', (event) => {
+				if (event.target === modale_add) {
+					modale_add.close();
+				}
+			});
+
+			function OnDelWorkspace()
+			{
+				modale_del.returnValue = ''
+				modale_del.showModal();
+			}
+
+			btnAnnuler_del.addEventListener('click', () => {
+				modale_del.close(); 
+			});
+
+			modale_del.addEventListener('close', () => {
+				
+				if (modale_del.returnValue === 'remove') {
+					RemoveWorkspaceSubmit();
+				}
+			});
+
+			modale_del.addEventListener('click', (event) => {
+				if (event.target === modale_del) {
+					modale_del.close();
+				}
+			});
+		
+		</script>
+
+		<input class="button_add buton_dev" style="color:rgb(0, 0, 0);font-size:11pt;font-weight:bold;width:210px" type ='button' name ='bt_add_workspace' value ='ADD WORKSPACE' onClick="OnAddNewWorkspace()"/>
+
+		{% if workspace_core.has_workspace %}
+		<input class="button_add buton_dev" style="color:rgb(92, 25, 25);font-weight:bold;height:25;font-size:12px;padding: 5px 10px;;width:210px" type ='button' name ='bt_remove_workspace' value ='REMOVE WORKSPACE' onClick="OnDelWorkspace()"/>
+		{% endif %}
+		<br><br>
+		
+		{% for workspace_name in workspace_core.workspace_list %}
+			<input class="button buton_workspace" type ='button' style="color:rgb(212, 212, 212);font-size:15px;font-weight:bold;" name ='COMMAND_'{{workspace_name}} value ={{workspace_name}} onClick="SelectWorkspaceSubmit('{{workspace_name}}')"> 
+		{% endfor %}
+
+	</body>
+</html>

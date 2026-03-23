@@ -1,0 +1,472 @@
+<html>
+	<head>
+
+		<script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_global.js') }}" ></script> 
+
+		<style type="text/css">
+
+			body 
+			{
+				font-family:verdana,arial,sans-serif;
+				font-size:10pt;
+				margin:10px;
+				background-color:rgb(255, 255, 255);
+				scroll-margin-right: 20px;
+			}
+
+			.button_left
+			{
+				background-color: #9ea3a1;
+				border: none;
+				color: rgb(71, 67, 67);
+				float: left;				
+				text-align: center;
+				text-decoration: none;
+				margin: 4px 8px;
+				font-size: 18px;
+				cursor: pointer;
+				height:27PX;
+				width:150px;
+				border-radius: 2px;
+			}
+
+			.button_right
+			{
+				background-color: #9ea3a1;
+				border: none;
+				color: rgb(44, 43, 43);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				margin: 4px 8px;
+				font-size: 18px;
+				cursor: pointer;
+				height:24px;
+				width:145px;
+				border-radius: 2px;
+				font-size:11pt;
+				font-weight:bold
+			}
+
+			/* Create two equal columns that floats next to each other */
+			.column {
+			float: left;
+			width: 50%;
+			}
+
+			/* Clear floats after the columns */
+			.row:after {
+			content: "";
+			display: table;
+			clear: both;
+			}
+
+			* {
+			box-sizing: border-box;
+			}
+
+			dialog {
+				background: rgb(0,0,0);
+				color: rgb(255,255,255);
+				border: none;					
+				width: 820px;	
+			}
+
+			/* Style de l'arrière-plan (overlay) */
+			dialog::backdrop {
+				background: rgba(0, 0, 0, 0.6);
+				backdrop-filter: blur(3px);
+			}
+
+			form { display: flex; flex-direction: column; gap: 1px; }			
+			.actions { display: flex; justify-content: flex-end; gap: 5px; }
+			input { padding: 1px;}
+
+			.button_form_cancel
+			{
+				background-color:  #999ea3;
+				border: none;
+				color: rgb(255, 255, 255);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 12px;
+				margin: 11px 4px;
+				cursor: pointer;
+				height:21;
+				width:88px;
+				font-weight:bold;
+				border-radius: 2px;
+			}
+
+			.button_form_new
+			{
+				background-color: #797678;
+				border: none;
+				color: rgb(255, 255, 255);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 12px;
+				margin: 11px 4px;
+				margin-right: 19px;
+				cursor: pointer;
+				height:21;
+				width:88px;
+				font-weight:bold;
+				border-radius: 2px;
+			}
+
+			.button_table
+			{
+				background-color: #9ea3a1;
+				border: none;
+				color: rgb(44, 43, 43);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 14px;
+				
+				cursor: pointer;
+				height:21;
+				width:77px;
+				font-weight:bold;
+				border-radius: 3px;
+			}
+
+			table {
+				
+				font-size: 14px;
+				table-layout: fixed;
+				margin-left: 10px;
+			}
+
+			tr:nth-child(even) {
+				background-color: #dad8d8;
+			}
+
+			table.d {
+				font-size: 14px;
+			}	
+
+		</style>
+		
+		<script>
+
+			function NewRequestSubmit(request_id)
+			{
+				let request_name = document.getElementById('request_name').value
+				let request_http = document.getElementById('request_http').value
+				let new_request_value = ""
+
+				if (request_name.length < 4)
+				{
+					return WindowsMessage("Error: Request Name length has to be at least 4 characters long!")
+				}
+				else if (request_name.length > 25)
+				{
+					return WindowsMessage("Error: Request Name length has to be at maximum of 25 characters long!")
+				}
+
+				if (request_http.length < 6)
+				{
+					return WindowsMessage("Error: HTTP Request length has to be at least 6 characters long!")
+				}
+
+				new_request_value = 'request_name=' + replace_value_by_tag(document.getElementById('request_name').value) + ":";
+				new_request_value += 'request_http=' + replace_value_by_tag(document.getElementById('request_http').value) + ":";
+				new_request_value += 'request_type=' + replace_value_by_tag(document.getElementById('request_type').value) + ":";
+				new_request_value += 'request_header=' + replace_value_by_tag(document.getElementById('request_header').value) + ":";
+				new_request_value += 'request_query=' + replace_value_by_tag(document.getElementById('request_query').value) + ":";
+				new_request_value += 'request_description=' + replace_value_by_tag(document.getElementById('request_description').value) + ":";
+				new_request_value += 'request_api_key=' + replace_value_by_tag(document.getElementById('request_api_key').value) + ":";
+				new_request_value += 'request_valid_key=' + replace_value_by_tag(document.getElementById('request_valid_key').value) + ":";
+				new_request_value += 'request_start_key=' + replace_value_by_tag(document.getElementById('request_start_key').value) + ":";
+				new_request_value += 'request_end_key=' + replace_value_by_tag(document.getElementById('request_end_key').value) + ":";
+				new_request_value += 'request_id=' + request_id
+
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+
+				if (request_id != "0")
+				{
+					document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_EDIT_REQUEST").value + ":" + new_request_value
+				}
+				else
+				{
+					document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_NEW_REQUEST").value + ":" + new_request_value	
+				}
+				         
+				document.getElementById("bodySubmit").target = "requester_acquisition"
+				document.getElementById("bodySubmit").submit()       
+			}
+
+			function DeleteRequestSubmit(request_id)
+			{
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_DELETE_REQUEST").value + ":" + request_id         
+				document.getElementById("bodySubmit").target = "requester_acquisition"
+				document.getElementById("bodySubmit").submit()       
+			}
+
+			function ExecuteRequestSubmit(request_id)
+			{
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_EXECUTE_REQUEST").value + ":" + request_id         
+				document.getElementById("bodySubmit").target = "result_acquisition"
+				document.getElementById("bodySubmit").submit()       
+			}
+
+			function ExecuteAllRequestSubmit(request_id)
+			{
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+				document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_EXECUTE_ALL_REQUEST").value 
+				document.getElementById("bodySubmit").target = "result_acquisition"
+				document.getElementById("bodySubmit").submit()       
+			}
+			
+		</script>
+	</head>
+	<body>
+
+		<input type="hidden" name="KEY_CONTROL_ID" id="KEY_CONTROL_ID" value="{{key_id}}">  	
+		<input type="hidden" name="KEY_ROUTE_NEW_REQUEST" id="KEY_ROUTE_NEW_REQUEST" value="{{new_request_tag}}">  	
+		<input type="hidden" name="KEY_ROUTE_DELETE_REQUEST" id="KEY_ROUTE_DELETE_REQUEST" value="{{delete_request_tag}}">
+		<input type="hidden" name="KEY_ROUTE_EDIT_REQUEST" id="KEY_ROUTE_EDIT_REQUEST" value="{{edit_request_tag}}">  	  	
+		<input type="hidden" name="KEY_ROUTE_EXECUTE_REQUEST" id="KEY_ROUTE_EXECUTE_REQUEST" value="{{execute_request_tag}}">  	  	
+		<input type="hidden" name="KEY_ROUTE_EXECUTE_ALL_REQUEST" id="KEY_ROUTE_EXECUTE_ALL_REQUEST" value="{{execute_all_request_tag}}">  	  	
+		
+		<form id="bodySubmit" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="HIDDEN_X" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form> 
+		
+		<label style="color:rgb(8, 8, 8);float:left;font-size:11pt;font-weight:bold">&nbsp;WORKSPACE:&nbsp;{{workspace.name}}&nbsp;</label>
+
+		{% if workspace.is_error_message %}
+			<label style="color:rgb(176, 33, 33);float:left;font-size:11pt;font-weight:bold;">&nbsp;{{workspace.message}}</label>
+		{% else %}
+			<label style="color:rgb(8, 8, 8);float:left;font-size:11pt;font-weight:bold;">&nbsp;{{workspace.message}}</label>
+		{% endif %}	
+
+		<input class="button_right buton_exp" style="color:rgb(0,0,0)" type ='button' name ='COMMAND_ADD' value ='ADD NEW' onClick="OnAddNewRequest('0')"/>
+		<input class="button_right buton_exp" style="color:rgb(0,0,0)"type ='button' name ='COMMAND_EXE_ALL' value ='EXECUTE ALL' onClick="ExecuteAllRequestSubmit()"/>
+
+		<br>
+		<br>
+		<br>
+		
+		<table class="d">
+				<tr style="color:rgb(197, 193, 193); 
+					background-color:rgb(37, 36, 36)">
+					<td width="14%s">&nbsp;NAME&nbsp;</td>
+					<td width="18%s">&nbsp;HTTP(S)&nbsp;</td>
+					<td>&nbsp;DESCRIPTION&nbsp;</td>
+					<td>&nbsp;TYPE&nbsp;</td>
+					<td>&nbsp;HEADER&nbsp;</td>
+					<td>&nbsp;QUERY&nbsp;</td>
+					<td>&nbsp;VALID KEY&nbsp;</td>
+					<td>&nbsp;START KEY&nbsp;</td>
+					<td>&nbsp;END KEY&nbsp;</td>
+				</tr>
+
+				{% if user_request_list|length > 0 %}
+					{% for user_request in user_request_list %}
+						<tr>
+							<td>{{user_request.name}}</td>
+							<td>{{user_request.request_base|truncate(30)}}</td>
+							<td>{{user_request.description|truncate(20)}}</td>
+							<td>{{user_request.request_type|truncate(5)}}</td>
+							<td>{{user_request.request_header|truncate(10)}}</td>
+							<td>{{user_request.request_query|truncate(10)}}</td>
+							<td>{{user_request.request_valid_key|truncate(10)}}</td>
+							<td>{{user_request.request_start_key|truncate(10)}}</td>
+							<td>{{user_request.request_end_key|truncate(10)}}</td>
+
+							<td><input class="button_table buton_edit" Style="width:46px;color:rgb(0,0,0)" type ='button' name ='COMMAND_EDIT' 
+									   value ='EDIT' onClick="OnAddNewRequest('{{user_request.request_id}}')"/></td>
+									   
+							<td><input class="button_table buton_delete" Style="width:66px;color:rgb(0,0,0)" type ='button' name ='COMMAND_DELETE' 
+								  	   value ='DELETE' onClick="OnClickDeleteRequestConfirm('{{user_request.name}}','{{user_request.request_id}}')"/></td>
+									   
+							<td><input class="button_table buton_execute" Style="width:77px;color:rgb(0,0,0)" type ='button' name ='COMMAND_EXECUTE' 
+									   value ='EXECUTE' onClick="ExecuteRequestSubmit('{{user_request.request_id}}')"/></td>		
+
+								<input type="hidden" name="KEY_ID_REQUEST_NAME" id="KEY_ID_REQUEST_NAME_{{user_request.request_id}}" value="{{user_request.name}}">  	
+								<input type="hidden" name="KEY_ID_REQUEST_HTTP" id="KEY_ID_REQUEST_HTTP_{{user_request.request_id}}" value="{{user_request.request_base}}">
+								<input type="hidden" name="KEY_ID_REQUEST_TYPE" id="KEY_ID_REQUEST_TYPE_{{user_request.request_id}}" value="{{user_request.request_type}}">
+								<input type="hidden" name="KEY_ID_REQUEST_QUERY" id="KEY_ID_REQUEST_QUERY_{{user_request.request_id}}" value="{{user_request.request_query}}">
+								<input type="hidden" name="KEY_ID_REQUEST_HEADER" id="KEY_ID_REQUEST_HEADER_{{user_request.request_id}}" value="{{user_request.header}}">
+								<input type="hidden" name="KEY_ID_REQUEST_DESCRIPTION" id="KEY_ID_REQUEST_DESCRIPTION_{{user_request.request_id}}" value="{{user_request.description}}">
+								<input type="hidden" name="KEY_ID_REQUEST_API_KEY" id="KEY_ID_REQUEST_API_KEY_{{user_request.request_id}}" value="{{user_request.api_key}}">
+								<input type="hidden" name="KEY_ID_REQUEST_VALID_KEY" id="KEY_ID_REQUEST_VALID_KEY_{{user_request.request_id}}" value="{{user_request.request_valid_key}}">
+								<input type="hidden" name="KEY_ID_REQUEST_START_KEY" id="KEY_ID_REQUEST_START_KEY_{{user_request.request_id}}" value="{{user_request.request_start_key}}">
+								<input type="hidden" name="KEY_ID_REQUEST_END_KEY" id="KEY_ID_REQUEST_END_KEY_{{user_request.request_id}}" value="{{user_request.request_end_key}}">
+						</tr>
+					{% endfor %}
+				{% endif %}
+			</table>
+
+		<dialog id="add_new_request">
+			<form method="dialog">
+				<h3 style="color:rgb(156, 21, 21);text-align:center;">NEW WEB API REQUEST</h3>
+				<div class="row">
+					<div class="column" style="background-color:#000000;">
+						<label for="nomInput" style="color:rgb(255,255,255);">NAME:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<input type="text" id="request_name" size="40" style="font-size: 12px;margin: 0.5px 3.2px;"
+																   placeholder="" required><br>
+
+						<label for="nomInput" style="color:rgb(255,255,255);">HTTP(S):&nbsp;</label>
+						<input type="text" id="request_http" size="40" style="font-size: 12px;margin: 0.5px 5px;"placeholder="https://..." 
+																				     	   required><br>
+
+						<label for="nomInput" style="color:rgb(255,255,255);">TYPE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<input type="text" id="request_type" size="40" style="font-size: 12px;margin: 0.5px 4px;"placeholder="..." 
+																				     	   			><br>
+
+						<label for="nomInput" style="color:rgb(255,255,255);">HEADER:&nbsp;</label>
+						<input type="text" id="request_header" size="40"style="font-size: 12px;margin: 0.5px 5px;"placeholder="..." 
+																			     	   				><br>																						   																						   
+
+						<label for="nomInput" style="color:rgb(255,255,255);">QUERY:&nbsp;&nbsp;&nbsp;</label>
+						<input type="text" id="request_query" size="40" style="font-size: 12px;margin: 0.5px 6px;"placeholder="..." 
+																				     	   			>																									
+					</div>
+					<div class="column" style="background-color:#000000;">
+						<label for="nomInput" style="color:rgb(255,255,255);">DESCRIPTION:</label>						
+						<input type="text" id="request_description" size="40" style="font-size: 12px;margin: 0.5px 5.2px;"placeholder="..." 
+																				     	   			><br>
+
+						<label for="nomInput" style="color:rgb(255,255,255);">API KEY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>						
+						<input type="text" id="request_api_key" size="40" style="font-size: 12px;margin: 0.5px 5.5px;"placeholder="..." 
+																				     	   			><br>
+
+						<label for="nomInput" style="color:rgb(255,255,255);">VALID KEY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>						
+						<input type="text" id="request_valid_key" size="40"style="font-size: 12px;margin: 0.5px 5.5px;"placeholder="..." 
+																				     	   			><br>
+																						   
+						<label for="nomInput" style="color:rgb(255,255,255);">START KEY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<input type="text" id="request_start_key" size="40" style="font-size: 12px;margin: 0.5px 4px;"placeholder="..." 
+																				     	   			><br>
+
+						<label for="nomInput" style="color:rgb(255,255,255);">END KEY:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>						
+						<input type="text" id="request_end_key" size="40" style="font-size: 12px;margin: 0.5px 4px;"placeholder="..." 
+																				     	   			>
+					</div>
+				</div>
+
+				<div class="actions">
+					<button type="button" style="border-radius:4px;" id="btnAnnuler_add" class="button_form_cancel">Cancel</button>
+					<button type="submit" style="border-radius:4px;color:rgb(0, 0, 0);font-weight:bold;" id="btnValider" class="button_form_new" value="confirm">NEW/SAVE</button>
+				</div>
+			</form>
+		</dialog>
+
+		<dialog id="confirm_delete_request_windows">
+			<form method="dialog">
+				<h3 style="color:rgb(156, 21, 21);text-align:center;">DELETE API REQUEST FROM YOUR WORKSPACE</h3>
+										
+                <h4 style="color:rgb(255,255,255);;text-align:center;">CONFIRM FOR REQUEST DELETION OF<output type="text" id="request_name_confirm" size="40"style="font-size: 12px;margin: 0.5px 5.5px;"> </h4>
+				<br>      
+				<div class="actions">
+					<button type="button" style="border-radius:4px;" id="confirm_delete_request_btnAnnuler" class="button_form_cancel">Cancel</button>
+					<button type="submit" style="border-radius:4px;color:rgb(0, 0, 0);font-weight:bold;" id="btnValider" class="button_form_new" value="confirm">CONFIRM</button>
+				</div>
+			</form>
+		</dialog>
+
+		<script>
+
+			const modale_add = document.getElementById('add_new_request');			
+			const btnAnnuler_add = document.getElementById('btnAnnuler_add');
+			let current_request_id = 0
+			
+			function OnAddNewRequest(request_id)
+			{
+				current_request_id = request_id
+
+				if (request_id != '0')
+				{
+					document.getElementById('request_name').value = document.getElementById('KEY_ID_REQUEST_NAME_'+request_id).value;	
+					document.getElementById('request_http').value = document.getElementById('KEY_ID_REQUEST_HTTP_'+request_id).value;
+					document.getElementById('request_type').value = document.getElementById('KEY_ID_REQUEST_TYPE_'+request_id).value;
+					document.getElementById('request_query').value = document.getElementById('KEY_ID_REQUEST_QUERY_'+request_id).value;
+					document.getElementById('request_header').value = document.getElementById('KEY_ID_REQUEST_HEADER_'+request_id).value;
+					document.getElementById('request_description').value = document.getElementById('KEY_ID_REQUEST_DESCRIPTION_'+request_id).value;
+					document.getElementById('request_api_key').value = document.getElementById('KEY_ID_REQUEST_API_KEY_'+request_id).value;
+					document.getElementById('request_valid_key').value = document.getElementById('KEY_ID_REQUEST_VALID_KEY_'+request_id).value;
+					document.getElementById('request_start_key').value = document.getElementById('KEY_ID_REQUEST_START_KEY_'+request_id).value;
+					document.getElementById('request_end_key').value = document.getElementById('KEY_ID_REQUEST_END_KEY_'+request_id).value;
+				}
+				else
+				{
+					document.getElementById('request_name').value = "";	
+					document.getElementById('request_http').value = "";
+					document.getElementById('request_type').value = "";
+					document.getElementById('request_query').value = "";
+					document.getElementById('request_header').value = "";
+					document.getElementById('request_description').value = "";
+					document.getElementById('request_api_key').value = "";
+					document.getElementById('request_valid_key').value = "";
+					document.getElementById('request_start_key').value = "";
+					document.getElementById('request_end_key').value = "";
+				}
+
+				modale_add.returnValue = ''
+				modale_add.showModal();
+			}
+
+			btnAnnuler_add.addEventListener('click', () => {
+				modale_add.close(); 
+			});
+
+			modale_add.addEventListener('close', () => {
+				
+				if (modale_add.returnValue === 'confirm') {
+
+					NewRequestSubmit(current_request_id);
+				}
+			});
+
+			modale_add.addEventListener('click', (event) => {
+				if (event.target === modale_add) {
+					modale_add.close();
+				}
+			});
+
+			const confirm_delete_request_modale = document.getElementById('confirm_delete_request_windows');
+			const confirm_delete_request_btnAnnuler = document.getElementById('confirm_delete_request_btnAnnuler');
+
+			let request_name_value = ""
+			let request_id_value = ""
+
+			function OnClickDeleteRequestConfirm(request_name_var, request_id_var)
+			{
+				request_name_value = request_name_var
+				request_id_value = request_id_var
+
+				document.getElementById('request_name_confirm').value = request_name_var
+
+                confirm_delete_request_modale.returnValue = ''
+				confirm_delete_request_modale.showModal();
+			}
+			
+			confirm_delete_request_btnAnnuler.addEventListener('click', () => {
+				confirm_delete_request_modale.close(); 
+			});
+
+			confirm_delete_request_modale.addEventListener('close', () => {
+				
+				if (confirm_delete_request_modale.returnValue == 'confirm') {
+                    DeleteRequestSubmit(request_id_value);
+				}
+			});
+
+			confirm_delete_request_modale.addEventListener('click', (event) => {
+				if (event.target == confirm_delete_request_modale) {
+					confirm_delete_request_modale.close();
+				}
+			});
+
+		</script>
+	</body>
+</html>

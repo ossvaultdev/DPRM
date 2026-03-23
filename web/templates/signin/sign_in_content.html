@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_global.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_sign_in.css') }}"> 
+
+	<script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_global.js') }}" ></script> 
+	<script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_sign_in.js') }}" ></script> 
+</head>
+<body> 
+
+	<input type="hidden" name="KEY_REQUEST_SIGNIN_SUBMIT" id="KEY_REQUEST_SIGNIN_SUBMIT" value="{{signin_submit_tag}}">  	
+
+    <form id="UserSelection" action = "/" method = "POST" target="body"> 
+        <input type="hidden" name="KEY_ID" id="KEY_ID" value="{{key_id}}" target="body">  
+        <input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+    </form>    
+
+	<div class="a">						
+        <div class="b">
+            <div>
+                
+                <label class="label lb_email" for="user_name">User Name</label><br>
+                <input class="text txt_user_name" type="text" id="USR_NAME" name="USR_NAME" value="{{new_user.user_name}}" maxlength="20" 
+                                title="User name must contain only alpha and numeric and be at least 8 characters long and max length of 20" required>
+
+                <label class="label lb_password" for="password">User Password</label><br>
+                <input class="text txt_user_password" type="password" id="USR_PWD_1" name="USR_PWD_1" maxlength="20"
+                                title="Password must contain at least one number, one alphabet, one symbol, and be at least 8 characters long and max length of 20" required /><br><br>
+
+                <label class="label lb_check_password" for="password2">Re-Type Password</label><br>
+                <input class="text txt_user_password2" type="password" id="USR_PWD_2" name="USR_PWD_2" 
+                                title="Re-Type Password must be the same as Password" maxlength="20" required><br><br>
+
+                <label class="label lb_first_name" for="first_name">First Name</label>
+                <input class="text txt_user_first_name" type="text" id="USR_FIRST_NAME" name="USR_FIRST_NAME" value="{{new_user.user_first_name}}"
+                            title="First name must contain only alpha characters and max length of 20" maxlength="20" required><br><br>
+                            
+                <label class="label lb_last_name" for="last_name">Last Name</label>
+                <input class="text txt_user_last_name" type="text" id="USR_LAST_NAME" name="USR_LAST_NAME" value="{{new_user.user_last_name}}"
+                                title="Last name must contain only alpha characters and space and max length of 50" maxlength="50" required><br><br>
+                
+                <label class="label lb_address" for="address">Address</label>
+                <input class="text txt_user_address" type="text" id="USR_ADDRESS" name="USR_ADDRESS" value="{{new_user.user_address}}"
+                                title="Address must contain only Alpha or Numeric value and with '.' or ':' for special characters and max length of 100" maxlength="100" required><br><br>
+
+                <label class="label lb_country" for="country">Country</label>
+                <select class="text lb_country1" id="USR_COUNTRY" name="USR_COUNTRY" required>
+                    <option value="">Country Selection</option>
+                    
+                    {% for country in country_list %}
+                        <option value="{{ country[0] }}">{{ country[1] }}</option>	
+                    {% endfor %}
+
+                </select><br><br>
+
+                <label class="label lb_email" for="email">Email</label><br>
+                <input class="text txt_user_email" type="text" id="USR_EMAIL" name="USR_EMAIL" maxlength="50" value="{{new_user.user_email}}"
+                                title="User E-Mail format is valid only [xxxxx@xxx.xx] -> [xxx.xxxx.x.xx@xxx.xx] and No special aplha value characters are admited and max length of 50" required /><br><br>
+                    
+                <label class="label lb_phone_number" for="phone_number">Phone Number</label>
+                <input class="text txt_user_phone_number" type="text" id="USR_PHONE" name="USR_PHONE" maxlength="20" value="{{new_user.user_phone}}"
+                                title="Phone Number must contain only Numeric value and with '.' or '(' or ')' for special characters and max length of 20" required><br><br>
+
+                <br><br>
+                <input class="button_left buton_home" type ='button' name ='COMMAND_home' value ='CANCEL' onClick="HomeSubmit()"/> 
+                <input class="button buton_sign_in" type ='button' name ='COMMAND_sign_in' value ='REGISTER' onClick="RegisterSubmit()"/> 
+            </div>
+        </div>	
+    </div>
+</body> 
+</html> 

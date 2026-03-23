@@ -1,0 +1,9 @@
+flask
+sqlite
+numpy
+matplotlib
+requests
+xmltodict
+json
+tensorflow
+PIL

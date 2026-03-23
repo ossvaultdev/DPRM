@@ -1,0 +1,130 @@
+<html>
+	<head>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_wrks_settings.css') }}"> 
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_wrks_global.css') }}">
+
+        <script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_global.js') }}" ></script> 
+
+        <script>
+
+            function WorkspaceSubmit() 
+            {
+                document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_WORKSPACE").value;          
+                document.getElementById("bodySubmit").target = "content"
+                document.getElementById("bodySubmit").submit();
+            }
+
+			function SaveSchedulerSubmit() 
+			{            
+                let user_schedule_code = document.getElementById("USR_SCHEDULER").value
+
+                let user_data_schedule_value = ""
+                
+                user_data_schedule_value = 'schedule_code=' + replace_value_by_tag(user_schedule_code);
+
+                document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_SCHEDULER_SAVE").value + ":" + user_data_schedule_value;          
+                document.getElementById("bodySubmit").target = "content"
+                document.getElementById("bodySubmit").submit();
+			}
+            
+		</script>
+	</head>
+	<body>
+        
+        <input type="hidden" name="KEY_CONTROL_ID" id="KEY_CONTROL_ID" value="{{key_id}}">  	
+        <input type="hidden" name="KEY_WORKSPACE_NAME" id="KEY_WORKSPACE_NAME" value="{{key_workspace_name}}">  	
+        
+        <input type="hidden" name="KEY_ROUTE_WORKSPACE" id="KEY_ROUTE_WORKSPACE" value="{{workspace_home_tag}}">  	
+        <input type="hidden" name="KEY_ROUTE_SCHEDULER_SAVE" id="KEY_ROUTE_SCHEDULER_SAVE" value="{{scheduler_save_tag}}">  	        
+
+        <form id="bodySubmit" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="HIDDEN_X" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form>    
+
+		<h1>SCHEDULER WORKSPACE OF {{key_workspace_name}}</h1>
+        <br>
+
+        <div class="a">			
+                
+            <div class="b">
+                <div>
+                    <br>
+
+                    <label class="label lb_scheduler" for="country">SELECT SCHEDULER</label>
+                    <select class="text lb_scheduler1" id="USR_SCHEDULER" name="USR_SCHEDULER" required>
+                        <option value="">{{workspace_scheduler_def}}</option>
+                        
+                        {% for scheduler in scheduler_list %}
+                            <option value="{{ scheduler[0] }}">{{ scheduler[1] }}</option>	
+                        {% endfor %}
+
+                    </select><br><br>
+
+                    <br><br>
+                    <input class="button_left buton_home" style="border-radius:6px;height:36px" type ='button' name ='home' value ='CANCEL' onClick="WorkspaceSubmit()"/>
+                    <input class="button buton_save" style="border-radius:6px;height:36px" type ='button' name ='save' value ='SAVE' onClick="OnWindowsInformationUser()"/>
+                    <br>
+                </div>
+            </div>	
+        </div>        
+	</body>
+
+
+    <!-- ********************************************************************************************************************* -->
+    <!-- *****************************          MESSAGE DEFINITION USER FOR INFORMATION          ***************************** -->
+    <!-- ********************************************************************************************************************* -->
+    <style>
+        dialog {
+            background: rgb(0,0,0);
+            color: rgb(255,255,255);
+            border: none;					
+            width: 600px;								
+        }
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+        }
+        form { display: flex; flex-direction: column; gap: 5px; }			
+        .actions { display: flex; justify-content: flex-end; gap: 5px; }
+        input { padding: 4px;}
+        button { cursor: pointer; padding: 8px 16px; border: none; width: 150px }
+            .btn-exit { background: #595a5a; color: rgb(255, 255, 255); font-weight:bold; font-size:12pt}
+    </style>
+    <dialog id="windows_information_user">
+        <form method="dialog">
+            <h1 style="color:rgb(250, 242, 242);text-align:center;">ASCDEV SYSTEM DEV ©Copyright</h1>
+            <h2 style="color:rgb(250, 242, 242);text-align:center;">Function or Process Not Finished.</h2>
+            <h2 style="color:rgb(250, 242, 242);text-align:center;">This is a project made for a Python Engineer Certificate at Nomades Advanced Technologies training in Geneva Switzerland.</h2>
+            <h2 style="color:rgb(250, 242, 242);text-align:center;">Could be finished and be operational on demand.</h2>
+            <br>
+            <div class="actions">
+                <button type="button" style="border-radius:4px;" id="windows_information_btnExit" class="btn-exit">EXIT</button>
+            </div>
+        </form>
+    </dialog>
+    <script>            
+        const windows_information_modale = document.getElementById('windows_information_user');
+        const windows_information_btnAnnuler = document.getElementById('windows_information_btnExit');
+        function OnWindowsInformationUser()
+        {
+            windows_information_modale.returnValue = ''
+            windows_information_modale.showModal();
+        }			
+        windows_information_btnAnnuler.addEventListener('click', () => {
+            windows_information_modale.close(); 
+        });
+        windows_information_modale.addEventListener('click', (event) => {
+            if (event.target == windows_information_modale) {
+                windows_information_modale.close();
+            }
+        });            
+    </script>
+    <!-- ********************************************************************************************************************* -->
+    <!-- *****************************          MESSAGE DEFINITION USER FOR INFORMATION          ***************************** -->
+    <!-- ********************************************************************************************************************* -->
+
+</html>

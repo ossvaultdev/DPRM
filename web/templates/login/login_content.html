@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_global.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/dprm_login.css') }}"> 
+
+	<script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_global.js') }}" ></script> 
+	<script type = "text/javascript" src = "{{ url_for('static', filename = 'script/dprm_login.js') }}" ></script> 
+
+</head>
+<body> 
+
+	<input type="hidden" name="KEY_REQUEST_LOGIN_SUBMIT" id="KEY_REQUEST_LOGIN_SUBMIT" value="{{login_submit_tag}}">  	
+
+    <form id="UserSelection" action = "/" method = "POST" target="body"> 
+        <input type="hidden" name="KEY_ID" id="KEY_ID" value="{{key_id}}" target="body">  
+        <input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+    </form>    
+
+	<div class="a">						
+        <div class="b">
+            <div>						
+                <label class="label lb_username" for="user_name">User Name</label><br>
+                <input class="text txt_user_name" type="text" id="USR_NAME" name="USR_NAME" value="{{user.user_name}}" maxlength="20" 
+                        title="User name must contain only alpha and numeric and be at least 8 characters long and max length of 20" required>
+
+                <label class="label lb_password" for="password">User Password</label><br>
+                <input class="text txt_user_password" type="password" id="USR_PWD_1" name="USR_PWD_1" maxlength="20" 
+                        title="Password must contain at least one number, one alphabet, one symbol, and be at least 8 characters long and max length of 20" required /><br><br>
+
+                <br><br><br>
+                <input class="button_left buton_home" type ='button' name ='COMMAND_home' value ='CANCEL' onClick="HomeSubmit()"/> 
+                <input class="button buton_login" type ='button' name ='COMMAND_login' value ='LOGIN' onClick="LoginSubmit()"/> 
+                <!-- <input class="button buton_dev" type ='button' name ='COMMAND_dev' value ='[DEV] AUTO LOGIN' onClick="Logindev()"/> -->
+            </div>
+        </div>	
+    </div>
+</body> 
+</html> 

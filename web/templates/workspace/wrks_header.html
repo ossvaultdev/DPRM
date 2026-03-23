@@ -1,0 +1,215 @@
+<html>
+	<head>
+
+		<style type="text/css">
+			body 
+			{
+				font-family:verdana,arial,sans-serif;
+				font-size:10pt;
+				margin:20px;
+				background-color:rgb(48, 44, 44);
+			}
+			a 
+			{
+				color:white;
+			}
+			h5
+			{
+				color:white;
+			}
+
+			.button_right 
+			{
+				background-color: #a0a8a4;
+				border: none;
+				color: rgb(0, 0, 0);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				cursor: pointer;
+				height:35;
+				border-radius: 2px;
+			}
+
+			.button_left
+			{
+				background-color: #a0a8a4;
+				border: none;
+				color: rgb(0, 0, 0);
+				float: left;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				cursor: pointer;
+				height:35;
+				border-radius: 2px;
+				font-weight:bold;
+			}
+
+			.button_right_disabled {
+				border: none;
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				height:35;
+				background-color: #cccccc; 
+				color: #666666;          
+				cursor: not-allowed;     
+				opacity: 0.6;
+				width:210px; 
+				border-radius: 2px;      
+				font-weight:bold;   
+			}
+
+			.button_right_selected
+			{
+				background-color: #a0a8a4;
+				border: none;
+				color: rgb(32, 105, 57);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				cursor: pointer;
+				height:35;
+				width:210px;
+				border-radius: 2px;
+				font-weight:bold;   
+			}
+			.button_right_not_selected
+			{
+				background-color: #a0a8a4;
+				border: none;
+				color: rgb(136, 37, 37);
+				float: right;				
+				text-align: center;
+				text-decoration: none;
+				font-size: 18px;
+				margin: 4px 2px;
+				cursor: pointer;
+				height:35;
+				width:210px;
+				border-radius: 2px;
+				font-weight:bold;   
+			}
+		</style>
+		<script>
+
+			function LogoutSubmit() 
+			{            				
+				document.getElementById("UserLogOut").submit();
+			}
+
+			function SettingSubmit() 
+			{       				
+				document.getElementById("UserSettings").submit();
+			}
+
+			
+
+			function AcquisitionSubmit()
+			{
+
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_ACQUISITION").value ;          
+                document.getElementById("bodySubmit").target = "body"
+                document.getElementById("bodySubmit").submit();
+				
+			}
+
+			function TransformationSubmit()			
+			{
+
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_TRANSFORMATION").value ;          
+                document.getElementById("bodySubmit").target = "body"
+                document.getElementById("bodySubmit").submit();
+				
+			}
+
+			function ExploitationSubmit()
+			{
+
+				document.getElementById("KEY_ID").value = document.getElementById("KEY_CONTROL_ID").value
+                document.getElementById("KEY_VALUE").value = document.getElementById("KEY_ROUTE_EXPLOITATION").value ;          
+                document.getElementById("bodySubmit").target = "body"
+                document.getElementById("bodySubmit").submit();
+				
+			}
+
+		</script>
+	</head>
+
+	<body>
+		<input type="hidden" name="KEY_CONTROL_ID" id="KEY_CONTROL_ID" value="{{key_id}}">  	
+        
+        <input type="hidden" name="KEY_ROUTE_ACQUISITION" id="KEY_ROUTE_ACQUISITION" value="{{acquisition_tag}}">  	
+        <input type="hidden" name="KEY_ROUTE_TRANSFORMATION" id="KEY_ROUTE_TRANSFORMATION" value="{{transformation_tag}}">  	        
+		<input type="hidden" name="KEY_ROUTE_EXPLOITATION" id="KEY_ROUTE_EXPLOITATION" value="{{exploitation_tag}}">  	        
+
+		<form id="bodySubmit" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="HIDDEN_X" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="HIDDEN_X" target="body">
+        </form>    
+
+		<form id="UserLogOut" action = "/" method = "POST" target="body"> 
+        	<input type="hidden" name="KEY_ID" id="KEY_ID" value="{{key_id}}" target="body">
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="{{logout_tag}}" target="body">
+        </form>    
+
+		<form id="UserSettings" action = "/" method = "POST" target="content"> 
+			<input type="hidden" name="KEY_ID" id="KEY_ID" value="{{key_id}}" target="content"> 
+          	<input type="hidden" name="KEY_VALUE" id="KEY_VALUE" value="{{setting_tag}}" target="content">
+        </form>    
+
+		<input class="button_left buton_dev" type ='button' name ='COMMAND_LOG_OUT' value ='LOG OUT' onClick="LogoutSubmit()" style="width:180px"/> 		
+		
+		<a style="float: left;">&emsp;&emsp;</a>
+		<input class="button_left buton_dev" type ='button' name ='COMMAND_SETTINGS' value ='SETTINGS' onClick="SettingSubmit()" style="width:180px"/> 		
+
+		{% if workspace.is_active_workspace %}
+			<a style="float: right;">&emsp;&emsp;&emsp;</a>
+			{% if workspace.is_valid_transformation %}
+				{% if workspace.is_on_exploitation %}
+					<input class="button_right_selected buton_exp" type ='button' name ='COMMAND_EXPL' value ='EXPLOITATION' onClick="ExploitationSubmit()"/>
+				{% else %}
+					<input class="button_right_not_selected buton_exp" type ='button' name ='COMMAND_EXPL' value ='EXPLOITATION' onClick="ExploitationSubmit()"/>
+				{% endif %}	
+			{% else %}
+				<input class="button_right_disabled buton_exp" type ='button' name ='COMMAND_EXPL' value ='EXPLOITATION' onClick=""/>
+			{% endif %}	
+			<a style="float: right;">&emsp;</a>
+			{% if workspace.is_valid_acquisition %}
+				{% if workspace.is_on_transformation %}
+					<input class="button_right_selected buton_trs" type ='button' name ='COMMAND_TRSF' value ='TRANSFORMATION' onClick="TransformationSubmit()"/> 
+				{% else %}
+					<input class="button_right_not_selected buton_trs" type ='button' name ='COMMAND_TRSF' value ='TRANSFORMATION' onClick="TransformationSubmit()"/> 
+				{% endif %}		
+			{% else %}
+				<input class="button_right_disabled buton_trs" type ='button' name ='COMMAND_TRSF' value ='TRANSFORMATION' onClick=""/> 
+			{% endif %}	
+			<a style="float: right;">&emsp;</a>
+			{% if workspace.is_on_acquisition %}
+				<input class="button_right_selected buton_acq" type ='button' name ='COMMAND_ACQI' value ='ACQUISITION' onClick="AcquisitionSubmit()"/> 
+			{% else %}
+				<input class="button_right_not_selected buton_acq" type ='button' name ='COMMAND_ACQI' value ='ACQUISITION' onClick="AcquisitionSubmit()"/> 
+			{% endif %}	
+		{% else %}
+			<a style="float: right;">&emsp;&emsp;&emsp;</a>
+			<input class="button_right_disabled buton_exp" type ='button' name ='COMMAND_EXPL' value ='EXPLOITATION' onClick=""/>
+			<a style="float: right;">&emsp;</a>
+			<input class="button_right_disabled buton_trs" type ='button' name ='COMMAND_TRSF' value ='TRANSFORMATION' onClick=""/> 
+			<a style="float: right;">&emsp;</a>
+			<input class="button_right_disabled buton_acq" type ='button' name ='COMMAND_ACQI' value ='ACQUISITION' onClick=""/> 
+		{% endif %}
+		
+
+	</body>
+
+</html>
