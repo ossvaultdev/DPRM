@@ -13,7 +13,7 @@
 ## 1. Description: 
 This is a web server allows the user to generate Web API requests and then schedule them at user-defined intervals. It then filters and transforms the data for use with an API server or for data extraction in various formats, such as Text, JSON, or XML files, or into a database for their applications use.
 
-![DPRM Diagram](https://github.com/NomadesAdvancedTechnologies/nomades-project-ASCPYTHON/blob/main/web/static/image/diagram_process.jpg)
+![DPRM Diagram](https://github.com/ossvaultdev/DPRM/blob/main/web/static/image/diagram_process.jpg)
 
 ## 2. Design: 
 The user will need to authenticate with a login after registering and will then have access to their workspaces, which are defined in three steps as described below.
