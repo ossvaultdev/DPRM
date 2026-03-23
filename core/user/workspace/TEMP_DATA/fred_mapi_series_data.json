@@ -1,0 +1,368 @@
+{
+    "series_data": {
+        "title": "2012 Per Capita Personal Income by State (Dollars)",
+        "region": "state",
+        "seasonality": "Not Seasonally Adjusted",
+        "units": "Dollars",
+        "frequency": "Annual",
+        "observation": [
+            {
+                "date": "2012-01-01",
+                "region": "Alabama",
+                "code": "01",
+                "value": "35559",
+                "series_id": "ALPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Alaska",
+                "code": "02",
+                "value": "53340",
+                "series_id": "AKPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Arizona",
+                "code": "04",
+                "value": "36364",
+                "series_id": "AZPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Arkansas",
+                "code": "05",
+                "value": "36289",
+                "series_id": "ARPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "California",
+                "code": "06",
+                "value": "47793",
+                "series_id": "CAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Colorado",
+                "code": "08",
+                "value": "45495",
+                "series_id": "COPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Connecticut",
+                "code": "09",
+                "value": "63556",
+                "series_id": "CTPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Delaware",
+                "code": "10",
+                "value": "43771",
+                "series_id": "DEPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "District of Columbia",
+                "code": "11",
+                "value": "67522",
+                "series_id": "DCPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Florida",
+                "code": "12",
+                "value": "41211",
+                "series_id": "FLPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Georgia",
+                "code": "13",
+                "value": "37250",
+                "series_id": "GAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Hawaii",
+                "code": "15",
+                "value": "43523",
+                "series_id": "HIPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Idaho",
+                "code": "16",
+                "value": "34812",
+                "series_id": "IDPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Illinois",
+                "code": "17",
+                "value": "45934",
+                "series_id": "ILPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Indiana",
+                "code": "18",
+                "value": "39148",
+                "series_id": "INPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Iowa",
+                "code": "19",
+                "value": "42539",
+                "series_id": "IAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Kansas",
+                "code": "20",
+                "value": "44913",
+                "series_id": "KSPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Kentucky",
+                "code": "21",
+                "value": "35630",
+                "series_id": "KYPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Louisiana",
+                "code": "22",
+                "value": "40662",
+                "series_id": "LAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Maine",
+                "code": "23",
+                "value": "39992",
+                "series_id": "MEPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Maryland",
+                "code": "24",
+                "value": "52481",
+                "series_id": "MDPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Massachusetts",
+                "code": "25",
+                "value": "56259",
+                "series_id": "MAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Michigan",
+                "code": "26",
+                "value": "39042",
+                "series_id": "MIPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Minnesota",
+                "code": "27",
+                "value": "47399",
+                "series_id": "MNPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Mississippi",
+                "code": "28",
+                "value": "33441",
+                "series_id": "MSPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Missouri",
+                "code": "29",
+                "value": "39983",
+                "series_id": "MOPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Montana",
+                "code": "30",
+                "value": "40217",
+                "series_id": "MTPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Nebraska",
+                "code": "31",
+                "value": "46385",
+                "series_id": "NEPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Nevada",
+                "code": "32",
+                "value": "39680",
+                "series_id": "NVPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "New Hampshire",
+                "code": "33",
+                "value": "50715",
+                "series_id": "NHPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "New Jersey",
+                "code": "34",
+                "value": "54235",
+                "series_id": "NJPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "New Mexico",
+                "code": "35",
+                "value": "35694",
+                "series_id": "NMPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "New York",
+                "code": "36",
+                "value": "52625",
+                "series_id": "NYPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "North Carolina",
+                "code": "37",
+                "value": "38876",
+                "series_id": "NCPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "North Dakota",
+                "code": "38",
+                "value": "56056",
+                "series_id": "NDPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Ohio",
+                "code": "39",
+                "value": "40279",
+                "series_id": "OHPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Oklahoma",
+                "code": "40",
+                "value": "41905",
+                "series_id": "OKPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Oregon",
+                "code": "41",
+                "value": "39128",
+                "series_id": "ORPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Pennsylvania",
+                "code": "42",
+                "value": "45637",
+                "series_id": "PAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Rhode Island",
+                "code": "44",
+                "value": "45298",
+                "series_id": "RIPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "South Carolina",
+                "code": "45",
+                "value": "35807",
+                "series_id": "SCPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "South Dakota",
+                "code": "46",
+                "value": "44996",
+                "series_id": "SDPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Tennessee",
+                "code": "47",
+                "value": "39079",
+                "series_id": "TNPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Texas",
+                "code": "48",
+                "value": "43869",
+                "series_id": "TXPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Utah",
+                "code": "49",
+                "value": "35622",
+                "series_id": "UTPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Vermont",
+                "code": "50",
+                "value": "44858",
+                "series_id": "VTPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Virginia",
+                "code": "51",
+                "value": "49049",
+                "series_id": "VAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Washington",
+                "code": "53",
+                "value": "47053",
+                "series_id": "WAPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "West Virginia",
+                "code": "54",
+                "value": "35233",
+                "series_id": "WVPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Wisconsin",
+                "code": "55",
+                "value": "42639",
+                "series_id": "WIPCPI"
+            },
+            {
+                "date": "2012-01-01",
+                "region": "Wyoming",
+                "code": "56",
+                "value": "53597",
+                "series_id": "WYPCPI"
+            }
+        ]
+    }
+}
