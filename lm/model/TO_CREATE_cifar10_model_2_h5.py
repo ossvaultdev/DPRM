@@ -1,3 +1,11 @@
+# --------------------------------------------------------------------------------------------------
+# NOTA COMMENT:
+#
+# FOR WORKING: MAKE MODEL WITH THIS SCRIPT AND PLACE LM MODEL FILE TO MODEL FOLDER
+#
+# FILE NAME: ..\model\cifar10_model_2.h5
+#
+# --------------------------------------------------------------------------------------------------
 import numpy as np
 import matplotlib.pyplot as plt
 
