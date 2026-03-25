@@ -8,7 +8,7 @@ import matplotlib.image as mpimg
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import tensorflow as tf
 
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from PIL import Image
 from pathlib import Path
 from tkinter.filedialog import askopenfilename
@@ -108,6 +108,10 @@ class WindowsMain():
                                                                       "", 
                                                                       'gray58', 138, 10, 1050, 25)
         def event_execute_image_prediction():
+            
+            if len(selected_backup_cycle.get()) == 0:
+                messagebox.showinfo("LM MODEL", "Please select a LM Model or create one and push it to LM.. Model.. Folder!")
+                return 
             
             if self.file_path != None:
                 
