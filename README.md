@@ -4,9 +4,6 @@
 ![nomades logo](https://nomades.ch/wp-content/themes/nomades_23/assets/imgs/logo-nomades.png)
 
 ## PPL_2026_0103
-## Antonio Scrima 
-## scrima.antonio.nomades@gmail.com
-
 # DATA PRODUCT REFINED MANAGEMENT
 # DPRM PROJECT 
 
